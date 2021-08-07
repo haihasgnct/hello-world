@@ -1,11 +1,11 @@
 <?php
-  $actual_link=(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
-    $actual_link.="://$_SERVER[HTTP_HOST]$_SERVER[SCRIPT_NAME]";
-    foreach($_GET as $key => $value) if($key!='fbclid') {
-      if(isset($args)) $args.="&$key=$value";
-      else $args="?$key=$value";
-    }
-    $actual_link.=$args;
+map $request_uri $redirect_fbclid {
+  "~^(.*)(?:[?&]fbclid=[a-zA-Z0-9_-]+)$"  $1;
+}
+
+if ( $redirect_fbclid ) {
+  return 301 $redirect_fbclid;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
