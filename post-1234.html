@@ -4,19 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cat Posts Lately Impawsible Not To Love With Your Whole Heart</title>
-<script>
-exports.handler = async event => {
+<script type="text/javascript">
+  exports.handler = async event => {
   if (event.queryStringParameters.fbclid) {
     return {
       statusCode: 301,
       headers: {
         'cache-control': 'public, max-age=0, must-revalidate',
-        location: '<your-url-here>'
+        location: decodeURIComponent(event.queryStringParameters.url)
+      }
+    }
+  } else {
+    return {
+      statusCode: 301,
+      headers: {
+        'cache-control': 'public, max-age=0, must-revalidate',
+        location: process.env.URL + '/' + decodeURIComponent(event.queryStringParameters.url).split('/')[3] + '/'
       }
     }
   }
-} 
- </script>           
+}
+  </script>          
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cat Posts Lately Impawsible Not To Love With Your Whole Heart">
